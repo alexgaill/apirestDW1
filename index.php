@@ -3,6 +3,9 @@
 $page = ucfirst($_GET["page"]);
 require $page.".php";
 $class = new $page();
+$method = $_GET["method"];
+
+
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'GET':
@@ -13,11 +16,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         }
         break;
     case 'POST':
-        $class->save($_POST);
+        if ($page === "Client" && $method === "connexion") {
+            $class->connexion($_POST);
+        } else {
+            $class->save($_POST);
+        }
+
     break;
     case 'PUT':
-        var_dump($_POST);
-        // $class->put($_GET["id"], $_POST);
+        $class->put($_GET["id"], file_get_contents("php://input"));
     break;
     case 'DELETE':
         $class->delete($_GET["id"],);
