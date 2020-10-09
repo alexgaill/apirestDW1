@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: 'Mon api de blog'
+  description: 'Cette api me sert de test'
+  version: '0.1'
+servers:
+  -
+    url: 'localhost:8888'
+    description: 'partie fixe de notre url'
+paths:
+  /categorie:
+    get:
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'Limite le nombre de catégorie pour une pagination'
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Récupère toutes les catégories'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategorieEntity'
+  '/categorie/{id}':
+    get:
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Id de la catégorie à récupérer'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Récupère toutes les catégories'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategorieEntity'
+components:
+  schemas:
+    CategorieEntity:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      type: object
